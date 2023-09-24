@@ -8,12 +8,10 @@ app = Flask(__name__)
 # on the terminal type: curl http://127.0.0.1:5000/
 # returns hello world when we use GET.
 # returns the data that we send when we use POST.
-@app.route('/', methods = ['GET', 'POST'])
+@app.route('/upload', methods = ['GET', 'POST'])
 def home():
-	if(request.method == 'GET'):
-
-		data = "hello world"
-		return jsonify({'data': data})
+	print(request.data)
+	return "SUCCESS"
 
 
 # A simple function to calculate the square of a number
@@ -30,3 +28,9 @@ def disp(num):
 if __name__ == '__main__':
 
 	app.run(debug = True)
+# import dis
+# import marshal
+
+# with open('app.cpython-311.pyc', 'rb') as f:
+#     f.seek(16)
+#     dis.dis(marshal.load(f))
