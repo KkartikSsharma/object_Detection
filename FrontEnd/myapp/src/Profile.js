@@ -72,17 +72,15 @@ function Profile () {
   const [imageData, setImageData] = useState('')
 
   async function handleTakePhoto (e) {
-    console.log(e)
     setImageData(e)
     setChangeData(false)
-    console.log(imageData);
-
-      const file = e;
+    const file = e.replace('data:image/png;base64,','');
+    console.log(file)
       if (file != null) {
-        let response = await fetch('/upload',
+        let response = await fetch('http://127.0.0.1:5000/upload',
           {
             method: 'post',
-            body: e,
+            body: file,
           }
         );
         let res = await response.json();
