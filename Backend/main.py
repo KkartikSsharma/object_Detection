@@ -1,6 +1,7 @@
 # Using flask to make an api
 # import necessary libraries and functions
 import os
+import time
 from flask import Flask, jsonify, request
 import re, base64
 from flask_cors import CORS
@@ -14,13 +15,13 @@ CORS(app)
 @app.route('/upload', methods = ['GET', 'POST'])
 def home():
 		# Get the base64 data from the JSON request
-		base64_data = request.data
+		base64_data = request.json['data']
 		# Decode the base64 data
 		# Image Base64 String
-		decodedData = base64.standard_b64decode(base64_data)
-  
+		decodedData = base64.b64decode(base64_data)
+
 		# Write Image from Base64 File
-		imgFile = open('image.png', 'wb')
+		imgFile = open('_image.jpeg', 'wb')
 		imgFile.write(decodedData)
 		imgFile.close()
 		return "SUCCESS"

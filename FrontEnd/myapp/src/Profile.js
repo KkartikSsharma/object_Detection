@@ -63,7 +63,7 @@
 import React, { useState } from 'react';
 import Camera from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
-
+import axios from 'axios';
 
 function Profile () {
 
@@ -74,20 +74,27 @@ function Profile () {
   async function handleTakePhoto (e) {
     setImageData(e)
     setChangeData(false)
-    const file = e.replace('data:image/png;base64,','');
+    const file = {
+     'data': e.replace('data:image/png;base64,','')
+    };
     console.log(file)
-      if (file != null) {
-        let response = await fetch('http://127.0.0.1:5000/upload',
-          {
-            method: 'post',
-            body: file,
-          }
-        );
-        let res = await response.json();
-        if (res.status !== 1){
-          alert('Error uploading file');
-        }
-      }
+    axios.post('http://localhost:5000/upload',file)
+    .then(res=>{
+      console.log(res);
+      console.log(res.data);
+    })
+      // if (file != null) {
+      //   let response = await fetch('upload',
+      //     {
+      //       method: 'post',
+      //       body: file,
+      //     }
+      //   );
+      //   let res = await response.json();
+      //   if (res.status !== 1){
+      //     alert('Error uploading file');
+      //   }
+      // }
   }
 
   function openCamera (){
