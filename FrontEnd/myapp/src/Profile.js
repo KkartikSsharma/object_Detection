@@ -65,45 +65,45 @@ import Camera from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
 import axios from 'axios';
 
-function Profile () {
+function Profile() {
 
   const [openCameraTrue, setOpenCameraTrue] = useState(true);
   const [changeData, setChangeData] = useState(true);
   const [imageData, setImageData] = useState('')
 
-  async function handleTakePhoto (e) {
+  async function handleTakePhoto(e) {
     setImageData(e)
     setChangeData(false)
     const file = {
-     'data': e.replace('data:image/png;base64,','')
+      'data': e.replace('data:image/png;base64,', '')
     };
     console.log(file)
-    axios.post('http://localhost:5000/upload',file)
-    .then(res=>{
-      console.log(res);
-      console.log(res.data);
-    })
-      // if (file != null) {
-      //   let response = await fetch('upload',
-      //     {
-      //       method: 'post',
-      //       body: file,
-      //     }
-      //   );
-      //   let res = await response.json();
-      //   if (res.status !== 1){
-      //     alert('Error uploading file');
-      //   }
-      // }
+    axios.post('http://localhost:5000/upload', file)
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
+    // if (file != null) {
+    //   let response = await fetch('upload',
+    //     {
+    //       method: 'post',
+    //       body: file,
+    //     }
+    //   );
+    //   let res = await response.json();
+    //   if (res.status !== 1){
+    //     alert('Error uploading file');
+    //   }
+    // }
   }
 
-  function openCamera (){
+  function openCamera() {
     console.log("opening camera");
     setOpenCameraTrue(!openCameraTrue)
     console.log(openCameraTrue)
   }
 
-  function closeCamera (){
+  function closeCamera() {
     console.log("closing camera");
     setOpenCameraTrue(!openCameraTrue)
     setChangeData(!changeData)
@@ -112,21 +112,20 @@ function Profile () {
 
   return (
     <div>
-      { openCameraTrue ?
-      <div>
-        <button onClick={openCamera}>Open Camera</button><br/>
-        <input type="file"/>   
-      </div>:
-      <div>
-      <button onClick={closeCamera}>Close Camera</button>
-      { changeData ?
-      <Camera
-      onTakePhoto = { (dataUri) => { handleTakePhoto(dataUri); } }
-      />:
-    <img src={`${imageData}`}/>
-    }
-    </div>
-    }
+      {openCameraTrue ?
+        <div>
+          <button onClick={openCamera}>Open Camera</button><br />
+        </div> :
+        <div>
+          <button onClick={closeCamera}>Close Camera</button>
+          {changeData ?
+            <Camera
+              onTakePhoto={(dataUri) => { handleTakePhoto(dataUri); }}
+            /> :
+            <img src={`${imageData}`} />
+          }
+        </div>
+      }
     </div>
   );
 }

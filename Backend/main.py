@@ -21,8 +21,13 @@ def home():
 		decodedData = base64.b64decode(base64_data)
 
 		# Write Image from Base64 File
-		imgFile = open('_image.jpeg', 'wb')
+		imgFile = open('image.jpeg', 'wb')
 		imgFile.write(decodedData)
-		os.system('python3 detect.py --weights C:\Users\neha\Desktop\Niat\Project\object_Detection\Backend\yolov7\best.pt  --source C:\Users\neha\Desktop\Niat\Project\object_Detection\Backend\150.jpeg --project \ --name C:\Users\neha\Desktop\Niat\Project\object_Detection\Backend\result')
 		imgFile.close()
+		command = 'python3 yolov7\\detect.py --weights C:\\Users\\neha\\Desktop\\Niat\\Project\\object_Detection\\Backend\\yolov7\\best.pt  --source '+ os.getcwd() + '\\image.jpeg --project \\ --name C:\\Users\\neha\\Desktop\\Niat\\Project\\object_Detection\\Backend\\result'
+		os.system(command)
 		return "SUCCESS"
+
+if __name__ == '__main__':
+
+	app.run(debug = True)
